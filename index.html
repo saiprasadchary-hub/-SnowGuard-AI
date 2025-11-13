@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnowGuard AI – Winter Safety & Survival Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <nav class="navbar glass">
+        <div class="logo">
+            <i class="fas fa-snowflake"></i>
+            <span>SnowGuard AI</span>
+        </div>
+        <div class="nav-links">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#assistant">AI Assistant</a>
+            <a href="#features">Features</a>
+            <a href="#emergency-kit">Emergency Kit</a>
+        </div>
+        <div class="nav-actions">
+            <button class="btn btn-outline" id="location-btn">
+                <i class="fas fa-map-marker-alt"></i> Set Location
+            </button>
+            <button class="btn btn-sos" id="sos-btn">
+                <i class="fas fa-exclamation-triangle"></i> SOS
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>AI that keeps you safe in winter</h1>
+        <p>SnowGuard AI is your intelligent winter safety companion, providing real-time hazard predictions, personalized guidance, and emergency assistance to protect you during extreme winter conditions.</p>
+        <div class="hero-actions">
+            <button class="btn btn-primary" id="get-started">
+                <i class="fas fa-play"></i> Get Started
+            </button>
+            <button class="btn btn-outline" id="learn-more">
+                <i class="fas fa-info-circle"></i> Learn More
+            </button>
+        </div>
+    </section>
+
+    <section class="dashboard" id="dashboard">
+        <h2 class="section-title">Winter Safety Dashboard</h2>
+        
+        <div class="dashboard-grid">
+            <div class="card weather-card glass">
+                <div class="card-header">
+                    <h3 class="card-title">Current Weather</h3>
+                    <div class="location-display">
+                        <i class="fas fa-map-marker-alt"></i> 
+                        <span id="current-location">New York, NY</span>
+                    </div>
+                </div>
+                <div class="weather-info">
+                    <div class="weather-item">
+                        <i class="fas fa-temperature-low"></i>
+                        <div class="weather-value">-5°C</div>
+                        <div class="weather-label">Temperature</div>
+                    </div>
+                    <div class="weather-item">
+                        <i class="fas fa-wind"></i>
+                        <div class="weather-value">15 km/h</div>
+                        <div class="weather-label">Wind Speed</div>
+                    </div>
+                    <div class="weather-item">
+                        <i class="fas fa-tint"></i>
+                        <div class="weather-value">85%</div>
+                        <div class="weather-label">Humidity</div>
+                    </div>
+                    <div class="weather-item">
+                        <i class="fas fa-snowflake"></i>
+                        <div class="weather-value">70%</div>
+                        <div class="weather-label">Snow Probability</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card glass safety-index">
+                <h3 class="card-title">Winter Safety Index</h3>
+                <div class="index-value index-moderate">6.2</div>
+                <div class="index-label">Moderate Risk</div>
+                <p class="index-description">Exercise caution when traveling. Watch for black ice on roads.</p>
+                <button class="btn btn-outline" id="safety-tips-btn">
+                    <i class="fas fa-lightbulb"></i> Safety Tips
+                </button>
+            </div>
+
+            <div class="card hazard-card glass">
+                <div class="card-header">
+                    <h3 class="card-title">Hazard Predictions</h3>
+                    <div class="last-updated">Updated 5 min ago</div>
+                </div>
+                <p>Road conditions analysis based on temperature, humidity, and precipitation data:</p>
+                <div class="hazard-levels">
+                    <div class="hazard-level hazard-safe">
+                        <i class="fas fa-check-circle hazard-icon"></i>
+                        <h4>Safe</h4>
+                        <p>Primary roads are clear with minimal ice risk</p>
+                    </div>
+                    <div class="hazard-level hazard-moderate">
+                        <i class="fas fa-exclamation-triangle hazard-icon"></i>
+                        <h4>Moderate Risk</h4>
+                        <p>Secondary roads may have black ice patches</p>
+                    </div>
+                    <div class="hazard-level hazard-high">
+                        <i class="fas fa-times-circle hazard-icon"></i>
+                        <h4>High Risk</h4>
+                        <p>Rural roads hazardous with ice accumulation</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="route-planner-btn">
+                    <i class="fas fa-route"></i> Plan Safe Route
+                </button>
+            </div>
+
+            <div class="card glass">
+                <div class="card-header">
+                    <h3 class="card-title">Active Alerts</h3>
+                    <i class="fas fa-bell alert-icon"></i>
+                </div>
+                <div class="alert-list">
+                    <div class="alert-item warning">
+                        <strong>Winter Weather Advisory</strong> until 6:00 AM tomorrow
+                    </div>
+                    <div class="alert-item danger">
+                        <strong>Wind Chill Warning</strong> - feels like -15°C
+                    </div>
+                </div>
+                <button class="btn btn-outline" id="alert-settings-btn">
+                    <i class="fas fa-cog"></i> Alert Settings
+                </button>
+            </div>
+
+            <div class="card glass">
+                <div class="card-header">
+                    <h3 class="card-title">24-Hour Forecast</h3>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <canvas id="forecast-chart" height="200"></canvas>
+                <button class="btn btn-outline" id="extended-forecast-btn">
+                    <i class="fas fa-calendar-alt"></i> Extended Forecast
+                </button>
+            </div>
+
+            <div class="card glass">
+                <div class="card-header">
+                    <h3 class="card-title">Emergency Contacts</h3>
+                    <i class="fas fa-address-book"></i>
+                </div>
+                <div class="contact-list" id="emergency-contact-list">
+                </div>
+                <button class="btn btn-primary" id="add-contact-btn">
+                    <i class="fas fa-plus"></i> Add Emergency Contact
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Advanced Safety Features</h2>
+        <div class="features-grid">
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <i class="fas fa-car-crash"></i>
+                </div>
+                <h3>Black Ice Detection</h3>
+                <p>Advanced AI algorithms predict black ice formation on roads using temperature, humidity, and road surface data.</p>
+                <button class="btn btn-outline" id="black-ice-info">
+                    Learn More
+                </button>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <i class="fas fa-house-damage"></i>
+                </div>
+                <h3>Avalanche Risk Assessment</h3>
+                <p>Get real-time avalanche risk levels for mountainous regions with detailed safety recommendations.</p>
+                <button class="btn btn-outline" id="avalanche-info">
+                    Check Risk
+                </button>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <i class="fas fa-snowplow"></i>
+                </div>
+                <h3>Road Condition Updates</h3>
+                <p>Live updates on road clearing operations and current driving conditions in your area.</p>
+                <button class="btn btn-outline" id="road-conditions-btn">
+                    View Roads
+                </button>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <i class="fas fa-first-aid"></i>
+                </div>
+                <h3>Winter First Aid Guide</h3>
+                <p>Step-by-step instructions for treating frostbite, hypothermia, and other winter-related injuries.</p>
+                <button class="btn btn-outline" id="first-aid-btn">
+                    Open Guide
+                </button>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Offline Survival Manual</h3>
+                <p>Access critical winter survival information even without an internet connection.</p>
+                <button class="btn btn-outline" id="offline-manual-btn">
+                    Download
+                </button>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Reports</h3>
+                <p>Share and view real-time condition reports from other users in your area.</p>
+                <button class="btn btn-outline" id="community-reports-btn">
+                    View Reports
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="assistant" id="assistant">
+        <h2 class="section-title">Winter Safety Assistant</h2>
+        
+        <div class="card glass">
+            <div class="card-header">
+                <h3 class="card-title">Ask about winter safety</h3>
+                <div class="assistant-status">
+                    <i class="fas fa-circle online"></i>
+                    <span>Online</span>
+                </div>
+            </div>
+            
+            <div class="chat-container" id="chat-container">
+                <div class="message bot-message">
+                    <p>Hello! I'm your SnowGuard AI assistant. I can help with winter safety tips, hazard information, and emergency guidance. How can I assist you today?</p>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Ask about winter safety...">
+                <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+
+            <div class="quick-questions">
+                <button class="btn btn-outline quick-question" data-question="hypothermia">
+                    Hypothermia
+                </button>
+                <button class="btn btn-outline quick-question" data-question="frostbite">
+                    Frostbite
+                </button>
+                <button class="btn btn-outline quick-question" data-question="black ice">
+                    Black Ice
+                </button>
+                <button class="btn btn-outline quick-question" data-question="winter driving">
+                    Winter Driving
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="emergency-kit" id="emergency-kit">
+        <h2 class="section-title">Winter Emergency Kit Checklist</h2>
+        <div class="card glass">
+            <p class="kit-description">Make sure you have these essential items in your winter emergency kit:</p>
+            <div class="kit-items">
+                <div class="kit-item">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span>Blankets & Warm Clothing</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-bread-slice"></i>
+                    <span>Non-perishable Food</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-tint"></i>
+                    <span>Water</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-battery-full"></i>
+                    <span>Flashlight & Batteries</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-first-aid"></i>
+                    <span>First Aid Kit</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Ice Scraper & Shovel</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Portable Charger</span>
+                </div>
+                <div class="kit-item">
+                    <i class="fas fa-car-battery"></i>
+                    <span>Jumper Cables</span>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="print-checklist">
+                <i class="fas fa-print"></i> Print Checklist
+            </button>
+        </div>
+    </section>
+
+    <div class="sos-modal" id="sos-modal">
+        <div class="sos-content">
+            <h2 class="sos-title"><i class="fas fa-exclamation-triangle"></i> EMERGENCY MODE</h2>
+            <p>You've activated SnowGuard AI Emergency Mode. Follow these survival instructions:</p>
+            
+            <div class="sos-steps">
+                <div class="sos-step">
+                    <h3>1. Stay Calm & Assess Situation</h3>
+                    <p>Check for injuries and take stock of your resources. Don't panic - help is available.</p>
+                </div>
+                <div class="sos-step">
+                    <h3>2. Find or Create Shelter</h3>
+                    <p>Protect yourself from wind and cold. Use natural windbreaks or build a snow cave if necessary.</p>
+                </div>
+                <div class="sos-step">
+                    <h3>3. Prevent Hypothermia</h3>
+                    <p>Keep moving fingers and toes. Layer clothing. Stay dry at all costs.</p>
+                </div>
+                <div class="sos-step">
+                    <h3>4. Signal for Help</h3>
+                    <p>Use bright colors, mirrors, or create signals in the snow. Three of anything is a universal distress signal.</p>
+                </div>
+            </div>
+            
+            <div class="sos-actions">
+                <button class="btn btn-primary" id="contact-emergency">
+                    <i class="fas fa-phone"></i> Contact Emergency Services
+                </button>
+                <button class="btn btn-outline" id="close-sos">
+                    Close Emergency Mode
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="safety-tips-modal">
+        <div class="modal-content">
+            <h2>Winter Safety Tips</h2>
+            <ul class="safety-tips-list">
+                <li>Dress in layers to trap body heat</li>
+                <li>Keep emergency supplies in your vehicle</li>
+                <li>Check weather forecasts regularly</li>
+                <li>Avoid traveling during winter storms</li>
+                <li>Learn to recognize signs of frostbite and hypothermia</li>
+            </ul>
+            <button class="btn btn-primary" id="close-safety-tips">Close</button>
+        </div>
+    </div>
+
+    <div class="modal" id="route-planner-modal">
+        <div class="modal-content">
+            <h2>Plan Safe Route</h2>
+            <div class="form-group">
+                <label for="start-location">Start Location</label>
+                <input type="text" id="start-location" placeholder="Enter starting point">
+            </div>
+            <div class="form-group">
+                <label for="end-location">Destination</label>
+                <input type="text" id="end-location" placeholder="Enter destination">
+            </div>
+            <div class="form-group">
+                <label for="route-preference">Route Preference</label>
+                <select id="route-preference">
+                    <option value="safest">Safest Route (Avoids hazards)</option>
+                    <option value="fastest">Fastest Route</option>
+                    <option value="shortest">Shortest Distance</option>
+                </select>
+            </div>
+            <div class="route-map">
+                <i class="fas fa-map-marked-alt"></i>
+                <p>Interactive route map would appear here</p>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-outline" id="close-route-planner">Cancel</button>
+                <button class="btn btn-primary" id="generate-route">Generate Route</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="alert-settings-modal">
+        <div class="modal-content">
+            <h2>Alert Settings</h2>
+            <div class="alert-settings">
+                <div class="setting-item">
+                    <span>Winter Storm Warnings</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Black Ice Alerts</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Extreme Cold Warnings</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Road Closure Notifications</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Community Reports</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="alert-frequency">Alert Frequency</label>
+                <select id="alert-frequency">
+                    <option value="immediate">Immediate</option>
+                    <option value="hourly">Hourly Digest</option>
+                    <option value="daily">Daily Summary</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-outline" id="close-alert-settings">Cancel</button>
+                <button class="btn btn-primary" id="save-alert-settings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="extended-forecast-modal">
+        <div class="modal-content">
+            <h2>7-Day Extended Forecast</h2>
+            <div class="forecast-container">
+                <div class="forecast-day">
+                    <div class="forecast-date">Today</div>
+                    <i class="fas fa-snowflake"></i>
+                    <div class="forecast-temp">-5°C</div>
+                    <div>Snow: 70%</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="forecast-date">Tomorrow</div>
+                    <i class="fas fa-cloud-sun"></i>
+                    <div class="forecast-temp">-3°C</div>
+                    <div>Snow: 30%</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="forecast-date">Wed</div>
+                    <i class="fas fa-sun"></i>
+                    <div class="forecast-temp">-1°C</div>
+                    <div>Snow: 10%</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="forecast-date">Thu</div>
+                    <i class="fas fa-cloud"></i>
+                    <div class="forecast-temp">-2°C</div>
+                    <div>Snow: 20%</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="forecast-date">Fri</div>
+                    <i class="fas fa-snowflake"></i>
+                    <div class="forecast-temp">-6°C</div>
+                    <div>Snow: 80%</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="forecast-date">Sat</div>
+                    <i class="fas fa-wind"></i>
+                    <div class="forecast-temp">-8°C</div>
+                    <div>Snow: 40%</div>
+                </div>
+                <div class="forecast-day">
+                    <div class="forecast-date">Sun</div>
+                    <i class="fas fa-cloud-sun"></i>
+                    <div class="forecast-temp">-4°C</div>
+                    <div>Snow: 20%</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="close-extended-forecast">Close</button>
+        </div>
+    </div>
+
+    <div class="modal" id="add-contact-modal">
+        <div class="modal-content">
+            <h2>Add Emergency Contact</h2>
+            <div class="form-group">
+                <label for="contact-name">Contact Name</label>
+                <input type="text" id="contact-name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+                <label for="contact-phone">Phone Number</label>
+                <input type="tel" id="contact-phone" placeholder="Enter phone number">
+            </div>
+            <div class="form-group">
+                <label for="contact-relationship">Relationship</label>
+                <select id="contact-relationship">
+                    <option value="family">Family</option>
+                    <option value="friend">Friend</option>
+                    <option value="neighbor">Neighbor</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-outline" id="close-add-contact">Cancel</button>
+                <button class="btn btn-primary" id="save-contact">Save Contact</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>SnowGuard AI &copy; 2023 | Winter Safety & Survival Companion</p>
+        <p>This application is for demonstration purposes. In real emergencies, always contact local emergency services.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
